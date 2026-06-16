@@ -52,6 +52,8 @@ const taskCount = document.getElementById('taskCount');
 const progressText = document.getElementById('progressText');
 const progressFill = document.getElementById('progressFill');
 const emptyState = document.getElementById('emptyState');
+const loadingState = document.getElementById('loadingState');
+const toastContainer = document.getElementById('toastContainer');
 
 // ============================================
 // APP STATE
@@ -74,12 +76,14 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ============================================
-// FETCH TASKS FROM MONGODB
+// FETCH TASKS
 // ============================================
 
 async function fetchTasks() {
 
     try {
+
+        loadingState.classList.add("show");
 
         const response = await fetch(API_URL);
 
@@ -94,6 +98,17 @@ async function fetchTasks() {
         console.error(
             "Failed to fetch tasks:",
             error
+        );
+
+        showToast(
+            "Failed to load tasks",
+            "error"
+        );
+
+    } finally {
+
+        loadingState.classList.remove(
+            "show"
         );
 
     }
@@ -140,6 +155,11 @@ async function addTask() {
 
         updateStats();
 
+        showToast(
+            "Task added successfully",
+            "success"
+        );
+
         taskInput.value = "";
 
         taskInput.focus();
@@ -149,6 +169,11 @@ async function addTask() {
         console.error(
             "Failed to create task:",
             error
+        );
+
+        showToast(
+            "Failed to add task",
+            "error"
         );
 
     }
@@ -208,11 +233,23 @@ async function toggleTask(id) {
 
         updateStats();
 
+        showToast(
+            updatedTask.completed
+                ? "Task completed"
+                : "Task marked active",
+            "success"
+        );
+
     } catch (error) {
 
         console.error(
             "Failed to update task:",
             error
+        );
+
+        showToast(
+            "Failed to update task",
+            "error"
         );
 
     }
@@ -224,6 +261,14 @@ async function toggleTask(id) {
 // ============================================
 
 async function deleteTask(id) {
+
+    const confirmed = confirm(
+        "Delete this task?"
+    );
+
+    if (!confirmed) {
+        return;
+    }
 
     try {
 
@@ -242,11 +287,21 @@ async function deleteTask(id) {
 
         updateStats();
 
+        showToast(
+            "Task deleted",
+            "success"
+        );
+
     } catch (error) {
 
         console.error(
             "Failed to delete task:",
             error
+        );
+
+        showToast(
+            "Delete failed",
+            "error"
         );
 
     }
@@ -261,13 +316,26 @@ function renderTasks() {
 
     taskList.innerHTML = '';
 
+    tasks.sort((a, b) => {
+
+        if (a.completed === b.completed)
+            return 0;
+
+        return a.completed ? 1 : -1;
+
+    });
+
     if (tasks.length === 0) {
 
         emptyState.classList.add('show');
 
+        taskList.style.display = "none";
+
         return;
 
     }
+
+    taskList.style.display = "block";
 
     emptyState.classList.remove('show');
 
@@ -335,6 +403,41 @@ function updateStats() {
 
     progressFill.style.width =
         `${percentage}%`;
+
+}
+
+// ============================================
+// TOAST SYSTEM
+// ============================================
+
+function showToast(message, type = "success") {
+
+    const toast =
+        document.createElement("div");
+
+    toast.className =
+        `toast ${type}`;
+
+    toast.textContent =
+        message;
+
+    toastContainer.appendChild(
+        toast
+    );
+
+    setTimeout(() => {
+
+        toast.classList.add(
+            "show"
+        );
+
+    }, 50);
+
+    setTimeout(() => {
+
+        toast.remove();
+
+    }, 3000);
 
 }
 

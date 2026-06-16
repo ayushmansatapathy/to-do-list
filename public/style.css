@@ -173,8 +173,15 @@ body {
 }
 
 @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-8px); }
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
 }
 
 .hero p {
@@ -423,7 +430,7 @@ body {
 .empty-state {
     display: none;
     text-align: center;
-    padding: 60px 20px;
+    padding: 70px 20px;
     color: var(--text-secondary);
 }
 
@@ -431,9 +438,38 @@ body {
     display: block;
 }
 
+.empty-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+}
+
+.empty-state h3 {
+    font-size: 1.4rem;
+    margin-bottom: 12px;
+    color: var(--text-primary);
+}
+
 .empty-state p {
-    font-size: 1.05rem;
-    font-weight: 400;
+    max-width: 320px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* ============================================
+   LOADING STATE
+   ============================================ */
+
+.loading-state {
+    display: none;
+    text-align: center;
+    padding: 50px 20px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    font-size: 1rem;
+}
+
+.loading-state.show {
+    display: block;
 }
 
 /* ============================================
@@ -452,6 +488,49 @@ input:focus-visible {
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
     }
+}
+
+
+/* ============================================
+   TOAST NOTIFICATIONS
+   ============================================ */
+
+#toastContainer {
+    position: fixed;
+    top: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+}
+
+.toast {
+    background: var(--card);
+    border: 3px solid var(--border);
+    padding: 14px 18px;
+    margin-bottom: 10px;
+    box-shadow: 5px 5px 0 var(--border);
+
+    opacity: 0;
+    transform: translateY(-20px);
+
+    transition: all 0.3s ease;
+
+    font-weight: 600;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.toast.success {
+    background: var(--secondary);
+    color: #000;
+}
+
+.toast.error {
+    background: var(--accent-light);
+    color: white;
 }
 
 /* ============================================
@@ -503,12 +582,27 @@ input:focus-visible {
         font-size: 2rem;
     }
 
+    @keyframes taskEnter {
+
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
     .task-item {
         flex-direction: column;
         align-items: flex-start;
         gap: 12px;
         padding: 14px;
         box-shadow: 4px 4px 0 var(--border);
+        animation: taskEnter 0.25s ease;
     }
 
     .task-left {
@@ -524,4 +618,5 @@ input:focus-visible {
     .bg-dot-2 {
         display: none;
     }
+
 }
