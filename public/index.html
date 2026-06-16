@@ -1,11 +1,80 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>To-Do App</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>To Do App</title>
+
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-    <h1>My To-Do App</h1>
+    <div class="container">
+
+        <header>
+
+            <h1>To Do List</h1>
+
+            <p>
+                Stay organized, get things done 🚀
+            </p>
+
+        </header>
+
+        <section class="task-input">
+
+            <input
+                type="text"
+                id="taskInput"
+                placeholder="Add a new task..."
+            >
+
+            <button id="addBtn">
+                Add
+            </button>
+
+        </section>
+
+        <section class="task-stats">
+
+            <span id="taskCount">
+                Tasks: 0
+            </span>
+
+            <span id="progressText">
+                0% Complete
+            </span>
+
+        </section>
+
+        <section>
+
+            <ul id="taskList">
+
+            </ul>
+
+        </section>
+
+        <section class="progress-container">
+
+            <div class="progress-bar">
+
+                <div
+                    class="progress-fill"
+                    id="progressFill">
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+    <script src="script.js"></script>
 
 </body>
+
 </html>
