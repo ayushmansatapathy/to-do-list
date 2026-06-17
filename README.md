@@ -17,10 +17,10 @@ Users can:
 * Track overall progress
 * Switch between light and dark themes
 
+![TaskFlow Preview](assets/light.png)
+
+
 All task data is persisted in MongoDB Atlas and accessed through a custom REST API built with Express.js.
-
-![TaskFlow Preview](./lightmode.png)
-
 ---
 
 ## Features
@@ -293,6 +293,4 @@ This project was built to gain practical experience with:
 
 ---
 
-## License
 
-This project is licensed under the MIT License.
