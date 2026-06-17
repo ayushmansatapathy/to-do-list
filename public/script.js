@@ -54,6 +54,18 @@ const progressFill = document.getElementById('progressFill');
 const emptyState = document.getElementById('emptyState');
 const loadingState = document.getElementById('loadingState');
 const toastContainer = document.getElementById('toastContainer');
+const deleteModal =
+    document.getElementById("deleteModal");
+
+const cancelDeleteBtn =
+    document.getElementById(
+        "cancelDeleteBtn"
+    );
+
+const confirmDeleteBtn =
+    document.getElementById(
+        "confirmDeleteBtn"
+    );
 
 // ============================================
 // APP STATE
@@ -62,6 +74,8 @@ const toastContainer = document.getElementById('toastContainer');
 const API_URL = "/tasks";
 
 let tasks = [];
+
+let taskToDelete = null;
 
 // ============================================
 // INITIAL LOAD
@@ -260,53 +274,77 @@ async function toggleTask(id) {
 // DELETE TASK
 // ============================================
 
-async function deleteTask(id) {
+function deleteTask(id) {
 
-    const confirmed = confirm(
-        "Delete this task?"
+    taskToDelete = id;
+
+    deleteModal.classList.add(
+        "show"
     );
 
-    if (!confirmed) {
-        return;
-    }
-
-    try {
-
-        await fetch(
-            `${API_URL}/${id}`,
-            {
-                method: "DELETE"
-            }
-        );
-
-        tasks = tasks.filter(
-            task => task._id !== id
-        );
-
-        renderTasks();
-
-        updateStats();
-
-        showToast(
-            "Task deleted",
-            "success"
-        );
-
-    } catch (error) {
-
-        console.error(
-            "Failed to delete task:",
-            error
-        );
-
-        showToast(
-            "Delete failed",
-            "error"
-        );
-
-    }
-
 }
+
+
+cancelDeleteBtn.addEventListener(
+    "click",
+    () => {
+
+        taskToDelete = null;
+
+        deleteModal.classList.remove(
+            "show"
+        );
+
+    }
+);
+
+confirmDeleteBtn.addEventListener(
+    "click",
+    async () => {
+
+        if (!taskToDelete)
+            return;
+
+        try {
+
+            await fetch(
+                `${API_URL}/${taskToDelete}`,
+                {
+                    method: "DELETE"
+                }
+            );
+
+            tasks = tasks.filter(
+                task =>
+                    task._id !== taskToDelete
+            );
+
+            renderTasks();
+
+            updateStats();
+
+            showToast(
+                "Task deleted",
+                "success"
+            );
+
+        } catch (error) {
+
+            showToast(
+                "Delete failed",
+                "error"
+            );
+
+        }
+
+        deleteModal.classList.remove(
+            "show"
+        );
+
+        taskToDelete = null;
+
+    }
+);
 
 // ============================================
 // RENDER TASKS

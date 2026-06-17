@@ -9,7 +9,8 @@
 
     <link rel="stylesheet" href="style.css">
 
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
@@ -21,11 +22,7 @@
     <div class="bg-decoration bg-line-2"></div>
 
     <!-- Theme Toggle -->
-    <button
-        class="theme-toggle"
-        id="themeToggle"
-        aria-label="Toggle dark mode"
-    >
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
         <span class="toggle-icon">🌙</span>
     </button>
 
@@ -33,6 +30,36 @@
     <div id="toastContainer"></div>
 
     <main class="app">
+
+        <!-- Delete Confirmation Modal -->
+
+        <div id="deleteModal" class="modal-overlay">
+
+            <div class="modal-card">
+
+                <h2>
+                    Delete Task?
+                </h2>
+
+                <p>
+                    This action cannot be undone.
+                </p>
+
+                <div class="modal-actions">
+
+                    <button id="cancelDeleteBtn" class="modal-btn cancel-btn">
+                        Cancel
+                    </button>
+
+                    <button id="confirmDeleteBtn" class="modal-btn delete-confirm-btn">
+                        Delete
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
 
         <!-- Hero -->
         <header class="hero">
@@ -49,19 +76,42 @@
         </header>
 
         <!-- Add Task -->
+
+        <!-- Delete Confirmation Modal -->
+
+        <div id="deleteModal" class="modal-overlay">
+
+            <div class="modal-card">
+
+                <h2>
+                    Delete Task?
+                </h2>
+
+                <p>
+                    This action cannot be undone.
+                </p>
+
+                <div class="modal-actions">
+
+                    <button id="cancelDeleteBtn" class="modal-btn cancel-btn">
+                        Cancel
+                    </button>
+
+                    <button id="confirmDeleteBtn" class="modal-btn delete-confirm-btn">
+                        Delete
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
         <section class="input-card">
 
-            <input
-                type="text"
-                id="taskInput"
-                placeholder="What needs to be done?"
-                aria-label="Task input"
-            >
+            <input type="text" id="taskInput" placeholder="What needs to be done?" aria-label="Task input">
 
-            <button
-                id="addBtn"
-                class="add-btn"
-            >
+            <button id="addBtn" class="add-btn">
                 Add
             </button>
 
@@ -72,10 +122,7 @@
 
             <div class="stat-card">
 
-                <div
-                    class="stat-value"
-                    id="taskCount"
-                >
+                <div class="stat-value" id="taskCount">
                     0
                 </div>
 
@@ -87,10 +134,7 @@
 
             <div class="stat-card">
 
-                <div
-                    class="stat-value"
-                    id="progressText"
-                >
+                <div class="stat-value" id="progressText">
                     0%
                 </div>
 
@@ -111,10 +155,7 @@
 
             <div class="progress-bar">
 
-                <div
-                    id="progressFill"
-                    class="progress-fill"
-                ></div>
+                <div id="progressFill" class="progress-fill"></div>
 
             </div>
 
@@ -124,24 +165,15 @@
         <section class="tasks-section">
 
             <!-- Loading State -->
-            <div
-                id="loadingState"
-                class="loading-state"
-            >
+            <div id="loadingState" class="loading-state">
                 Loading tasks...
             </div>
 
             <!-- Task List -->
-            <ul
-                id="taskList"
-                class="task-list"
-            ></ul>
+            <ul id="taskList" class="task-list"></ul>
 
             <!-- Empty State -->
-            <div
-                id="emptyState"
-                class="empty-state"
-            >
+            <div id="emptyState" class="empty-state">
 
                 <div class="empty-icon">
                     🎯
