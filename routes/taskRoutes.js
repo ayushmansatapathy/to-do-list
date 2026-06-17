@@ -9,7 +9,7 @@ const {
     createTask,
     updateTask,
     deleteTask
-} = require("../controllers/taskController");
+} = require("../controller/taskController");
 
 router.get("/", getAllTasks);
 
