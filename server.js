@@ -6,32 +6,44 @@ const connectDB = require("./config/db");
 
 const express = require("express");
 
-connectDB();
-
 const errorHandler = require("./middleware/errorHandler");
 
 const app = express();
 
+connectDB();
+
 app.use(express.json());
 
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(
+    path.join(__dirname, "public")
+));
 
-const tasks = require("./data/tasks");
+const taskRoutes =
+    require("./routes/taskRoutes");
 
-const taskRoutes = require("./routes/taskRoutes");
-
-const PORT = process.env.PORT || 3000;
-
-// Home Route
-app.get("/", (req, res) => {
-    res.send("Welcome to To-Do API");
-});
-
-// Mount Task Routes
 app.use("/tasks", taskRoutes);
+
+app.get("/", (req, res) => {
+
+    res.sendFile(
+        path.join(
+            __dirname,
+            "public",
+            "index.html"
+        )
+    );
+
+});
 
 app.use(errorHandler);
 
+const PORT =
+    process.env.PORT || 3000;
+
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+
+    console.log(
+        `Server running on port ${PORT}`
+    );
+
 });
