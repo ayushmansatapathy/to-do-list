@@ -255,8 +255,7 @@ http://localhost:5000
 
 Deployment is currently in progress.
 
-The live application URL will be added here once deployment is completed.
-
+(https://to-do-list-jem6.onrender.com/)
 ```text
 Status: Coming Soon
 ```
